@@ -32,8 +32,7 @@
         .contain {
             background-color: #fff;
             margin: auto;
-            height: 50%;
-            width: 50%;
+            padding: 16px 24px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
@@ -67,6 +66,7 @@
             background-color: #fff;
             border: 2px solid #999;
             outline: none;
+            min-width: 100px;
             padding: 12px 16px;
             font-size: 1.8rem;
             cursor: pointer;
@@ -81,6 +81,68 @@
             text-shadow: 1px 1px #000;
         }
 
+        .message {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 16px 24px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 16px;
+            min-height: 60px;
+            opacity: 0;
+            display: none;
+            box-shadow: 0 0 2px 0;
+        }
+
+        .message.error {
+            display: block;
+        }
+
+        .message.yes {
+            display: block;
+        }
+
+        .in {
+            animation: SlideIn linear 1s forwards;
+        }
+
+        .out {
+            animation: SlideOut linear 1s forwards;
+        }
+
+        @keyframes SlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            75% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0%);
+            }
+        }
+
+        @keyframes SlideOut {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            75% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100%);
+                display: none;
+            }
+        }
+
         @keyframes Zoom {
             0% {
                 transform: scale(1);
@@ -93,6 +155,14 @@
 </head>
 <body>
     <div class="app">
+        <div class="alert">
+            <div class="message error">
+                <h1 class="heading-mess">Tớ cũng vậy lêu lêu</h1>
+            </div>
+            <div class="message yes">
+                <h1 class="heading-mess">Có cái nịt tớ mới thích cậu nhá :))</h1>
+            </div>
+        </div>
         <div class="contain">
             <h1 class="title">
                 Sắp Valentine rồi <br> Cậu làm người yêu tớ nhé ^^
@@ -101,10 +171,41 @@
                 <i class="fas fa-heart"></i>
             </div>
             <div class="option">
-                <button class="option-btn">Đồng Ý</button>
-                <button class="option-btn">Không Đồng Ý</button>
+                <button class="option-btn btn-argree">Đồng Ý</button>
+                <button class="option-btn btn-no-argree">Không </button>
             </div>
         </div>
     </div>
+    <script>
+        const yesBtn = document.querySelector('.btn-argree');
+        const noBtn = document.querySelector('.btn-no-argree');
+        const yesMess = document.querySelector('.message.yes');
+        const errorMess = document.querySelector('.message.error');
+        
+        yesBtn.onclick = ()=> {
+            if(errorMess.className === "message error in") {
+                errorMess.classList.remove("in");
+            }
+            yesMess.classList.add("in");
+            yesMess.classList.remove("out");
+            removeMess();
+        }
+
+        noBtn.onclick = ()=> {
+            if(yesMess.className === "message yes in") {
+                yesMess.classList.remove("in");
+            }
+            errorMess.classList.add("in");
+            errorMess.classList.remove("out");
+            removeMess();
+        }
+
+        function removeMess() {
+            setTimeout(()=> {
+                yesMess.classList.add('out');
+                errorMess.classList.add('out');
+            },4000);
+        }
+    </script>
 </body>
 </html>
