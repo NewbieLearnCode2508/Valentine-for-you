@@ -188,7 +188,6 @@
             }
             yesMess.classList.add("in");
             yesMess.classList.remove("out");
-            removeMess();
         }
 
         noBtn.onclick = ()=> {
@@ -197,14 +196,6 @@
             }
             errorMess.classList.add("in");
             errorMess.classList.remove("out");
-            removeMess();
-        }
-
-        function removeMess() {
-            setTimeout(()=> {
-                yesMess.classList.add('out');
-                errorMess.classList.add('out');
-            },4000);
         }
     </script>
 </body>
